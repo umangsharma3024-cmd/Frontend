@@ -1,0 +1,31 @@
+name: bicycle
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  umangDeploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git library
+        uses: actions/checkout@v4
+
+      - name: Connection
+        uses: appleboy/ssh-action@v1.2.0
+
+        with:
+          host: ${{ secrets.IP }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+
+          script: |
+            cd /home/umang/Frontend
+            git pull origin main
+            sudo npm i
+            sudo npm run build
+            cd dist/bicycle/
+            pm2 delete "from git"
+            pm2 start --name "from git" http-server -- -p 4200 -d false
