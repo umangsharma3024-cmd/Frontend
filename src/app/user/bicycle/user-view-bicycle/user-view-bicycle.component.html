@@ -1,0 +1,46 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
+<section class="blog">
+    <div class="container">
+        <div class="banner-heading">
+            <h2>View Bicycles</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12 margin-top" *ngFor="let bike of data">
+                <div class="content-div">
+                    <div class="blog-inner">
+                        <div class="blog-img">
+                            <img 
+                                [src]="getimagepath(bike.image)" 
+                                [alt]="bike.bikeType"
+                                (error)="onImageError($event)"
+                                class="img-responsive" 
+                            />
+                            <div class="img-border"></div>
+                        </div>
+                        <div class="blog-text">
+                            <div>
+                                <p class="blog-heading">
+                                    {{ bike.bikeType }}
+                                </p>
+                                <p style="font-size: 1.3rem; color: #dc3545; font-weight: 600; margin: 5px 0 10px 0;">
+                                    {{ bike.pricePerHour | currency:'INR' }} <span style="font-size: 0.8rem; color: #999;">/hour</span>
+                                </p>
+                            </div>
+                            <p class="blog-textual-cont">
+                                {{bike.description}}
+                            </p>
+                        </div>
+                        <a 
+                            [routerLink]="['/layout/make-booking',bike._id]" 
+                            class="btn btn-danger mb-4" 
+                            *ngIf="istoken && userType==3"
+                        >
+                            Make Booking
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

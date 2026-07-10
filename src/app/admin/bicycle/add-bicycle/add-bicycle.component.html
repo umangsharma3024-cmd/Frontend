@@ -1,0 +1,66 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<section class="contact-form">
+    <div class="container">
+        <div class="contact-heading">
+            <h1>Add Bicycle</h1>
+            <a routerLink="/admin/admin-view-bicycle" class="btn btn-danger" *ngIf="usertype==1">Manage Bicycle</a>
+            <a routerLink="/layout/renter-view-bicycle" class="btn btn-danger" *ngIf="usertype==2">Manage Bicycle</a>
+        </div>
+        <form id="contact" [formGroup]="addForm" class="bicycle-form">
+            <div class="form-row">
+                <div class="form-col">
+                    <fieldset>
+                        <label for="bikeType">Bike Type <span class="required">*</span></label>
+                        <input placeholder="Enter bike type" formControlName="bikeType" type="text" required autofocus>
+                        <span *ngIf="addForm.controls['bikeType'].invalid && addForm.controls['bikeType'].touched" class="text-danger">Required field</span>
+                    </fieldset>
+                </div>
+                <div class="form-col">
+                    <fieldset>
+                        <label for="pricePerHour">Price Per Hour <span class="required">*</span></label>
+                        <input placeholder="Enter price" type="text" formControlName="pricePerHour" required>
+                        <span *ngIf="addForm.controls['pricePerHour'].invalid && addForm.controls['pricePerHour'].touched" class="text-danger">Enter a valid price</span>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <fieldset>
+                        <label for="location">Location <span class="required">*</span></label>
+                        <input placeholder="Enter location" type="text" formControlName="location" required>
+                        <span *ngIf="addForm.controls['location'].invalid && addForm.controls['location'].touched" class="text-danger">Required field</span>
+                    </fieldset>
+                </div>
+                <div class="form-col">
+                    <fieldset>
+                        <label for="bicycle_image">Bicycle Image <span class="required">*</span></label>
+                        <div class="image-upload-wrapper">
+                            <input id="image-input" type="file" (change)="uploadimage($event)" accept="image/*" required>
+                            <label for="image-input" class="file-label">Choose Image</label>
+                        </div>
+                        <small *ngIf="imagePreview" class="image-preview-text">Image selected ✓</small>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="image-preview-container" *ngIf="imagePreview">
+                <div class="image-preview">
+                    <img [src]="imagePreview" alt="Preview" class="preview-img">
+                    <p class="preview-label">Image Preview</p>
+                </div>
+            </div>
+
+            <fieldset class="full-width">
+                <label for="description">Description <span class="required">*</span></label>
+                <textarea placeholder="Enter bike description..." formControlName="description" required rows="5"></textarea>
+                <span *ngIf="addForm.controls['description'].invalid && addForm.controls['description'].touched" class="text-danger">Required field</span>
+            </fieldset>
+
+            <fieldset class="button-group">
+                <button [disabled]="addForm.invalid" type="button" class="btn btn-warning" (click)="submit()">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </fieldset>
+        </form>
+    </div>
+</section>

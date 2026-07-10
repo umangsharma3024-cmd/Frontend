@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage('clone rerepository') {
+            steps {
+                git url: 'https://github.com/KaranManhas22/6Month_Harsh.git', branch: 'main', credentialsId: 'harshid'
+            }
+        }
+        stage('docker build') {
+            steps {
+                sh 'docker build -t bicyclefront .'
+            }
+        }
+        stage('Deploy') {
+            steps {
+               sh 'docker run -d -p 4200:4200 bicyclefront'
+            }
+        }
+    }
+}
